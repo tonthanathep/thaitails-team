@@ -2,10 +2,11 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 import sharp from "sharp";
-import { Users } from "./collection/Users";
 import { Roles } from "./collection/Roles";
 import { Staff } from "./collection/Staff";
 import { Teams } from "./collection/Teams";
+import { Users } from "./collection/Users";
+import { ThirdPartyAccess } from "./collection/ThirdParty";
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
@@ -15,7 +16,7 @@ export default buildConfig({
   },
 
   // Define and configure your collections in this array
-  collections: [Users, Roles, Teams, Staff],
+  collections: [Users, Roles, Teams, Staff, ThirdPartyAccess],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",

@@ -9,13 +9,14 @@
 export interface Config {
   auth: {
     users: UserAuthOperations;
-    staff: StaffAuthOperations;
+    'third-party-access': ThirdPartyAccessAuthOperations;
   };
   collections: {
     users: User;
     roles: Role;
     teams: Team;
     staff: Staff;
+    'third-party-access': ThirdPartyAccess;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -26,6 +27,7 @@ export interface Config {
     roles: RolesSelect<false> | RolesSelect<true>;
     teams: TeamsSelect<false> | TeamsSelect<true>;
     staff: StaffSelect<false> | StaffSelect<true>;
+    'third-party-access': ThirdPartyAccessSelect<false> | ThirdPartyAccessSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -40,8 +42,8 @@ export interface Config {
     | (User & {
         collection: 'users';
       })
-    | (Staff & {
-        collection: 'staff';
+    | (ThirdPartyAccess & {
+        collection: 'third-party-access';
       });
   jobs: {
     tasks: unknown;
@@ -66,7 +68,7 @@ export interface UserAuthOperations {
     password: string;
   };
 }
-export interface StaffAuthOperations {
+export interface ThirdPartyAccessAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -91,7 +93,6 @@ export interface StaffAuthOperations {
 export interface User {
   id: string;
   nickname: string;
-  secret?: string | null;
   role?: ('admin' | 'editor') | null;
   updatedAt: string;
   createdAt: string;
@@ -153,6 +154,18 @@ export interface Staff {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "third-party-access".
+ */
+export interface ThirdPartyAccess {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
   email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
@@ -184,6 +197,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'staff';
         value: string | Staff;
+      } | null)
+    | ({
+        relationTo: 'third-party-access';
+        value: string | ThirdPartyAccess;
       } | null);
   globalSlug?: string | null;
   user:
@@ -192,8 +209,8 @@ export interface PayloadLockedDocument {
         value: string | User;
       }
     | {
-        relationTo: 'staff';
-        value: string | Staff;
+        relationTo: 'third-party-access';
+        value: string | ThirdPartyAccess;
       };
   updatedAt: string;
   createdAt: string;
@@ -210,8 +227,8 @@ export interface PayloadPreference {
         value: string | User;
       }
     | {
-        relationTo: 'staff';
-        value: string | Staff;
+        relationTo: 'third-party-access';
+        value: string | ThirdPartyAccess;
       };
   key?: string | null;
   value?:
@@ -243,7 +260,6 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   nickname?: T;
-  secret?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -293,6 +309,17 @@ export interface StaffSelect<T extends boolean = true> {
   userJSON?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "third-party-access_select".
+ */
+export interface ThirdPartyAccessSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
   email?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
