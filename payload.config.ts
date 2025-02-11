@@ -6,7 +6,6 @@ import { Roles } from "./collection/Roles";
 import { Staff } from "./collection/Staff";
 import { Teams } from "./collection/Teams";
 import { Users } from "./collection/Users";
-import { ThirdPartyAccess } from "./collection/ThirdParty";
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
@@ -16,7 +15,7 @@ export default buildConfig({
   },
 
   // Define and configure your collections in this array
-  collections: [Users, Roles, Teams, Staff, ThirdPartyAccess],
+  collections: [Users, Roles, Teams, Staff],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",
