@@ -7,7 +7,7 @@ import {
 import { getContent } from "@/utils/getContent";
 
 const TeamPage = async () => {
-  const staff = await getContent({
+  const staff: any = await getContent({
     collections: "staff",
     where: {
       isActive: {
@@ -20,7 +20,7 @@ const TeamPage = async () => {
 
   return (
     <div className='w-full'>
-      {staff.map((person, index) => (
+      {staff.map((person: any, index: number) => (
         <Card key={index}>
           <CardHeader>
             <CardTitle>{person.name}</CardTitle>
