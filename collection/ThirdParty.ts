@@ -5,5 +5,7 @@ export const ThirdPartyAccess: CollectionConfig = {
   auth: {
     useAPIKey: true,
   },
-  fields: [],
+  fields: [
+    { name: "user", type: "relationship", relationTo: "users", required: true },
+  ],
 };

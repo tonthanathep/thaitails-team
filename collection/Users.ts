@@ -11,5 +11,6 @@ export const Users: CollectionConfig = {
     { name: "email", type: "text", required: true },
     { name: "nickname", type: "text", required: true },
     { name: "role", type: "select", options: ["admin", "editor"] },
+    { name: "slug", type: "text" },
   ],
 };

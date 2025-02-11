@@ -94,6 +94,7 @@ export interface User {
   id: string;
   nickname: string;
   role?: ('admin' | 'editor') | null;
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -161,6 +162,7 @@ export interface Staff {
  */
 export interface ThirdPartyAccess {
   id: string;
+  user: string | User;
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -261,6 +263,7 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   nickname?: T;
   role?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -315,6 +318,7 @@ export interface StaffSelect<T extends boolean = true> {
  * via the `definition` "third-party-access_select".
  */
 export interface ThirdPartyAccessSelect<T extends boolean = true> {
+  user?: T;
   updatedAt?: T;
   createdAt?: T;
   enableAPIKey?: T;
