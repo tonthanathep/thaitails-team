@@ -3,6 +3,9 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Users } from "./collection/Users";
+import { Roles } from "./collection/Roles";
+import { Staff } from "./collection/Staff";
+import { Teams } from "./collection/Teams";
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
@@ -12,7 +15,7 @@ export default buildConfig({
   },
 
   // Define and configure your collections in this array
-  collections: [Users],
+  collections: [Users, Roles, Teams, Staff],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",
