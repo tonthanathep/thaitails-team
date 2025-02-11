@@ -13,6 +13,12 @@ export const Staff: CollectionConfig = {
 
   fields: [
     {
+      name: "uid",
+      type: "number",
+      required: true,
+      label: "Staff ID",
+    },
+    {
       name: "name",
       type: "text",
       required: true,
