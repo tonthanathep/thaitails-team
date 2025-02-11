@@ -114,6 +114,7 @@ export interface Team {
  */
 export interface Staff {
   id: string;
+  uid: number;
   name: string;
   role: (string | Role)[];
   isActive: boolean;
@@ -242,6 +243,7 @@ export interface TeamsSelect<T extends boolean = true> {
  * via the `definition` "staff_select".
  */
 export interface StaffSelect<T extends boolean = true> {
+  uid?: T;
   name?: T;
   role?: T;
   isActive?: T;
