@@ -9,6 +9,7 @@
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    staff: StaffAuthOperations;
   };
   collections: {
     users: User;
@@ -35,15 +36,37 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user:
+    | (User & {
+        collection: 'users';
+      })
+    | (Staff & {
+        collection: 'staff';
+      });
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface StaffAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -68,6 +91,7 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   nickname: string;
+  secret?: string | null;
   role?: ('admin' | 'editor') | null;
   updatedAt: string;
   createdAt: string;
@@ -129,6 +153,14 @@ export interface Staff {
     | null;
   updatedAt: string;
   createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -154,10 +186,15 @@ export interface PayloadLockedDocument {
         value: string | Staff;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'staff';
+        value: string | Staff;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -167,10 +204,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'staff';
+        value: string | Staff;
+      };
   key?: string | null;
   value?:
     | {
@@ -201,6 +243,7 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   nickname?: T;
+  secret?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -250,6 +293,13 @@ export interface StaffSelect<T extends boolean = true> {
   userJSON?: T;
   updatedAt?: T;
   createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

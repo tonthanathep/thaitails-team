@@ -2,6 +2,27 @@ import type { CollectionConfig } from "payload";
 
 export const Staff: CollectionConfig = {
   slug: "staff",
+  auth: {
+    strategies: [
+      {
+        name: "custom-strategy",
+        authenticate: async ({ payload, headers }) => {
+          const usersQuery = await payload.find({
+            collection: "users",
+            where: {
+              secret: {
+                equals: headers.get("secret"),
+              },
+            },
+          });
+          const user = usersQuery.docs[0] || null;
+          return {
+            user: user ? { ...user, collection: "users" } : null,
+          };
+        },
+      },
+    ],
+  },
   admin: {
     useAsTitle: "name",
   },
