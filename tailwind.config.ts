@@ -24,10 +24,6 @@ const config = {
       },
     },
     extend: {
-      fontFamily: {
-        head: ["var(--font-butler)"],
-        sans: ["var(--font-noto)"],
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
