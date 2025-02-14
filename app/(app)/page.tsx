@@ -56,14 +56,14 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.9, ease: "easeInOut" }}
         >
-          <h1 className='text-[6rem] leading-none font-bold'>
+          <h1 className='text-[5rem] lg:text-[6rem] leading-none font-bold'>
             {section_one.title}
           </h1>
 
-          <span className='text-[6rem] leading-none font-bold'>
+          <span className='text-[5rem] lg:text-[6rem] leading-none font-bold'>
             {section_one.subtitle}
           </span>
-          <p className='text-[1.5rem] max-w-[90vh] w-full text-left leading-normal mt-4'>
+          <p className='text-[1.3rem] lg:text-[1.5rem] max-w-[90vh] w-full text-left leading-normal mt-4'>
             {section_one.description}
           </p>
           <div className='flex flex-row gap-4 mt-8'>
@@ -102,7 +102,7 @@ export default function Home() {
         transition={{ delay: 1.2, duration: 0.9, ease: "easeInOut" }}
         className='flex flex-col justify-center w-full max-w-screen-xl px-[2rem] lg:px-[10rem] h-full'
       >
-        <h1 className='text-[3.5rem] leading-none font-bold max-w-[80vh]'>
+        <h1 className='text-[3rem] lg:text-[3.5rem] leading-tight lg:leading-none font-bold max-w-[80vh]'>
           {section_two.title}
         </h1>
       </motion.div>
